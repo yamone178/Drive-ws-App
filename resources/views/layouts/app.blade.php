@@ -22,12 +22,12 @@
         <main class="">
 
             @auth
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class=" col-3 col-md-3 col-lg-2  sidebar p-0" >
+                <div class="">
+                    <div class="d-flex">
+                        <div class="  sidebar p-0" >
                             @include('layouts.sidebar')
                         </div>
-                        <div class="p-0 col-9 col-md-9 col-lg-10 ">
+                        <div class="p-0 w-100 ">
                            @include('layouts.navbar')
                             @yield('content')
                         </div>
@@ -37,6 +37,7 @@
 
 
         @guest
+                    @include('layouts.navbar')
             @yield('content')
             @endguest
         </main>

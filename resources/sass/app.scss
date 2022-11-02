@@ -40,7 +40,8 @@ $accordion-button-active-color: blue;
 }
 
 .sidebar{
-    max-width: 250px !important;
+    min-width: 250px;
+     max-width: 300px;
 }
 
 .accordion-body .list-group-item{
