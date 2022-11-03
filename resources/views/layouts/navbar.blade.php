@@ -2,7 +2,7 @@
     <div class="container px-3 py-2">
         <i class="bi bi-justify side-toggler  me-4 fs-4 fw-bold"></i>
         <a class="navbar-brand fw-bold" href="{{ url('/') }}">
-           Laravel
+           Easy Drive
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
