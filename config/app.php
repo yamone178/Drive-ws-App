@@ -24,7 +24,7 @@ return [
     |
     | This value determines the "environment" your application is currently
     | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" myDrive.
+    | services the application utilizes. Set this in your ".env" file.
     |
     */
 
@@ -134,12 +134,12 @@ return [
     | manage Laravel's "maintenance mode" status. The "cache" driver will
     | allow maintenance mode to be controlled across multiple machines.
     |
-    | Supported drivers: "myDrive", "cache"
+    | Supported drivers: "file", "cache"
     |
     */
 
     'maintenance' => [
-        'driver' => 'myDrive',
+        'driver' => 'file',
         // 'store'  => 'redis',
     ],
 
