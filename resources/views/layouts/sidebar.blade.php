@@ -28,7 +28,7 @@
                             </li>
 
                             <li>
-                                <form id="folderUpload" action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
+                                <form id="folderUpload" action="{{route('myDrive.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <input type="text" class="folderName" name="folder_name" value="" hidden>
                                     <input onchange="selectFolder(event)" form="folderUpload" type="file" webkitdirectory mozdirectory msdirectory odirectory directory name="uploadFolder[]" multiple class="file-upload-input form-control" >
@@ -41,7 +41,7 @@
                             </li>
 
                             <li>
-                                <form id="fileUpload" action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
+                                <form id="fileUpload" action="{{route('myDrive.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <input form="fileUpload" type="file" name="photos[]" multiple class="file-upload-input form-control" >
                                     <button form="fileUpload"   class="btn w-100 bg-white border-0 file-upload-btn" >
@@ -57,7 +57,7 @@
                 <hr>
 
             </div>
-            <a href="{{route('drive.index')}}" class="list-group-item">
+            <a href="{{route('myDrive.index')}}" class="list-group-item">
                 <i class=" me-2 bi bi-journal-arrow-up"></i>
                 <span>My drive</span>
             </a>
@@ -143,8 +143,8 @@
 </div>
 
 <script>
-    let fileBtn= document.querySelector('.file-upload-btn');
-    let fileInput =document.querySelector('.file-upload-input');
+    let fileBtn= document.querySelector('.myDrive-upload-btn');
+    let fileInput =document.querySelector('.myDrive-upload-input');
 
     // fileBtn.addEventListener('click', function(e){
     //     e.preventDefault();

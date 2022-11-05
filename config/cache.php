@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'file'),
+    'default' => env('CACHE_DRIVER', 'myDrive'),
 
     /*
     |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return [
     | well as their drivers. You may even define multiple stores for the
     | same cache driver to group types of items stored in your caches.
     |
-    | Supported drivers: "apc", "array", "database", "file",
+    | Supported drivers: "apc", "array", "database", "myDrive",
     |         "memcached", "redis", "dynamodb", "octane", "null"
     |
     */
@@ -49,8 +49,8 @@ return [
             'lock_connection' => null,
         ],
 
-        'file' => [
-            'driver' => 'file',
+        'myDrive' => [
+            'driver' => 'myDrive',
             'path' => storage_path('framework/cache/data'),
         ],
 

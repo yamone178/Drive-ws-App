@@ -6,11 +6,11 @@
             <div class="card-body">
                <div class="d-flex justify-content-between">
                    <nav class="breadcrumb">
-                       <a href="{{route('drive.index')}}" class="text-black text-decoration-none"><h4>My Drive / </h4></a>
+                       <a href="{{route('myDrive.index')}}" class="text-black text-decoration-none"><h4>My Drive / </h4></a>
                        <h4 class="ms-2"> {{$folder->name}}</h4>
                    </nav>
 
-                   <form id="fileUpload" action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
+                   <form id="fileUpload" action="{{route('myDrive.store')}}" method="post" enctype="multipart/form-data">
                        @csrf
                        <input type="number"  form="fileUpload" name="folder_id" value="{{$folder->id}}" hidden>
 
@@ -61,7 +61,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                             <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
                                         </svg>
-{{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
+{{--                                        <img src="{{asset('storage/localImages/myDrive.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
 
                                     </div>
 

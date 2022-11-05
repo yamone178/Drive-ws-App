@@ -19,6 +19,9 @@ class FileController extends Controller
     public function index()
     {
 
+        $uploadedFiles = File::where('drive_id', null)->latest('id')->get();
+
+        return view('index',compact('uploadedFiles'));
     }
 
     /**
@@ -40,11 +43,13 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
 
+        //upload Folder
        if ($request->hasFile('uploadFolder')){
            $folder= new Folder();
            $folder->name = $request->folder_name;
            $folder->save();
 
+           //upload folder->files
            foreach ($request->uploadFolder as $key=>$file){
                $newName = uniqid()."_file.".$file->extension();
                $file->storeAs("public",$newName);
@@ -62,6 +67,7 @@ class FileController extends Controller
            File::insert($saveFiles);
        }
 
+       //upload by myDrive
         if ($request->hasFile('photos')){
             foreach ($request->photos as $key=>$photo){
                 $newName = uniqid()."_file.".$photo->extension();
@@ -79,6 +85,7 @@ class FileController extends Controller
 
             File::insert($saveFiles);
         }
+
 
         return redirect()->back();
 

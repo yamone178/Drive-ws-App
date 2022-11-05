@@ -28,16 +28,27 @@
 
                 @endforeach
 
-            @foreach(\App\Models\File::where('drive_id', null)->get() as $file)
+
+        </div>
+
+
+        <div class="row">
+            {{$uploadedFiles}}
+            @foreach($uploadedFiles as $file)
                 @if($file->extension == 'png'|| $file->extension == 'jpg'|| $file->extension == 'jpeg')
 
                     <div class="col-3 my-3">
 
                         <div class="card">
-                            <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="170px" height="170px" style="object-fit: cover" alt="">
+                            <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="100px" height="150px" style="object-fit: cover; object-position: top" alt="">
 
                             <div class="card-body">
-                                <p class="mb-0">{{$file->name}}</p>
+                              <div class="d-flex justify-content-around">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi text-danger bi-image-fill" viewBox="0 0 16 16">
+                                      <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
+                                  </svg>
+                                  <p class="mb-0">{{$file->name}}</p>
+                              </div>
                             </div>
                         </div>
 
@@ -45,23 +56,30 @@
 
                 @else
                     <div class="col-3 my-3">
-                        <div class="card">
-                            <div class="d-flex justify-content-center align-items-center" style="width: 170px; height: 170px;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                        <div class="card d-flex justify-content-center">
+                            <div class="w-100 text-center" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="150px" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                     <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
                                 </svg>
-                                {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
+                                {{--                                        <img src="{{asset('storage/localImages/myDrive.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
 
                             </div>
 
                             <div class="card-body">
-                                <p class="mb-0">{{$file->name}}</p>
+                                <div class="d-flex justify-content-around ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                    </svg>
+
+                                    <p class="mb-0">{{$file->name}}</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
                 @endif
-             @endforeach
+            @endforeach
 
         </div>
 
