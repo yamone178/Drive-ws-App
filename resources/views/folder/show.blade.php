@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        <div class="card mt-3 border-0 shadow-sm min-vh-100">
+        <div class="card mt-3 border-0 shadow-sm min-vh-100 uploadCard">
             <div class="card-body">
                <div class="d-flex justify-content-between">
                    <nav class="breadcrumb">
-                       <a href="{{route('drive.index')}}" class="text-black text-decoration-none"><h4>My Drive / </h4></a>
+                       <a href="{{route('myDrive.index')}}" class="text-black text-decoration-none"><h4>My Drive / </h4></a>
                        <h4 class="ms-2"> {{$folder->name}}</h4>
                    </nav>
 
@@ -66,6 +66,20 @@
                                     </div>
 
                                     <div class="card-body">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                        </svg>
+                                        <div class="dropdown">
+                                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-three-dots-vertical"></i>
+                                            </a>
+
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                        </div>
                                         <p class="mb-0">{{$file->name}}</p>
                                     </div>
                                 </div>

@@ -6,6 +6,7 @@ use App\Http\Requests\StoreDriveRequest;
 use App\Http\Requests\UpdateDriveRequest;
 use App\Models\Drive;
 use App\Models\File;
+use App\Models\Folder;
 use Illuminate\Support\Facades\Auth;
 
 class DriveController extends Controller
@@ -17,8 +18,9 @@ class DriveController extends Controller
      */
     public function index()
     {
-        $photos= Drive::all();
-        return view('drive.index',compact('photos'));
+       $files =File::where('drive_id', null)->latest('id')->get();
+       $folders= Folder::where('drive_id', null)->latest('id')->get();
+       return view('drive.index',compact(['files','folders']));
     }
 
     /**

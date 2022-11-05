@@ -57,7 +57,7 @@
                 <hr>
 
             </div>
-            <a href="{{route('drive.index')}}" class="list-group-item">
+            <a href="{{route('myDrive.index')}}" class="list-group-item">
                 <i class=" me-2 bi bi-journal-arrow-up"></i>
                 <span>My drive</span>
             </a>

@@ -83,7 +83,11 @@ class FolderController extends Controller
      */
     public function update(UpdateFolderRequest $request, Folder $folder)
     {
-        //
+        $folder->name = $request->name;
+        $folder->update();
+
+        return redirect()->back();
+
     }
 
     /**
@@ -94,6 +98,8 @@ class FolderController extends Controller
      */
     public function destroy(Folder $folder)
     {
-        //
+        $folder->delete();
+        return redirect()->back();
+
     }
 }
