@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDriveRequest;
 use App\Http\Requests\UpdateDriveRequest;
 use App\Models\Drive;
+use App\Models\File;
+use Illuminate\Support\Facades\Auth;
 
 class DriveController extends Controller
 {
@@ -15,8 +17,8 @@ class DriveController extends Controller
      */
     public function index()
     {
-        $files= Drive::all();
-        return view('drive.index',compact('files'));
+        $photos= Drive::all();
+        return view('drive.index',compact('photos'));
     }
 
     /**
@@ -37,12 +39,7 @@ class DriveController extends Controller
      */
     public function store(StoreDriveRequest $request)
     {
-        $drive = new Drive();
-        $drive->files = json_encode($request->files);
-        $drive->save();
-
-
-        return redirect()->route('drive.index');
+//
 
     }
 
@@ -54,7 +51,7 @@ class DriveController extends Controller
      */
     public function show(Drive $drive)
     {
-        //
+
     }
 
     /**

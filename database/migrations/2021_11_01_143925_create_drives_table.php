@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('drives', function (Blueprint $table) {
             $table->id();
-            $table->string('folder')->nullable();
-            $table->json('files')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
         });
     }

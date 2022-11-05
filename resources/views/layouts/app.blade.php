@@ -37,7 +37,7 @@
 
 
         @guest
-                    @include('layouts.navbar')
+              @include('layouts.navbar')
             @yield('content')
             @endguest
         </main>

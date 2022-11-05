@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
+use App\Models\Drive;
 use App\Models\File;
+use App\Models\Folder;
+use Illuminate\Support\Facades\Auth;
 
 class FileController extends Controller
 {
@@ -15,7 +18,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -36,7 +39,49 @@ class FileController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        //
+
+       if ($request->hasFile('uploadFolder')){
+           $folder= new Folder();
+           $folder->name = $request->folder_name;
+           $folder->save();
+
+           foreach ($request->uploadFolder as $key=>$file){
+               $newName = uniqid()."_file.".$file->extension();
+               $file->storeAs("public",$newName);
+
+               $saveFiles[$key] = [
+                   "user_id" => Auth::id(),
+                   "extension"=> $file->extension(),
+                   "folder_id" => $folder->id,
+                   "drive_id" => $folder->id,
+                   "name" => $newName
+               ];
+
+           }
+
+           File::insert($saveFiles);
+       }
+
+        if ($request->hasFile('photos')){
+            foreach ($request->photos as $key=>$photo){
+                $newName = uniqid()."_file.".$photo->extension();
+                $photo->storeAs("public",$newName);
+
+                $saveFiles[$key] = [
+                    "user_id" => Auth::id(),
+                    "extension"=> $photo->extension(),
+                    "folder_id" => $request->folder_id,
+                    "drive_id" => $request->folder_id,
+                    "name" => $newName
+                ];
+
+            }
+
+            File::insert($saveFiles);
+        }
+
+        return redirect()->back();
+
     }
 
     /**

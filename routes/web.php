@@ -21,3 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('drive',\App\Http\Controllers\DriveController::class);
+Route::resource('folder',\App\Http\Controllers\FolderController::class);
+Route::resource('file',\App\Http\Controllers\FileController::class);

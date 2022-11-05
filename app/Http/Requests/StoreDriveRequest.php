@@ -24,8 +24,7 @@ class StoreDriveRequest extends FormRequest
     public function rules()
     {
         return [
-            'folder'=> 'nullable',
-            'files'=> 'nullable'
+
         ];
     }
 }
