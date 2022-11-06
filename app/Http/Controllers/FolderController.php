@@ -87,6 +87,7 @@ class FolderController extends Controller
      */
     public function update(UpdateFolderRequest $request, Folder $folder)
     {
+
         $folder->name = $request->name;
         $folder->update();
 

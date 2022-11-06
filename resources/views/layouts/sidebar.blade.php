@@ -22,7 +22,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li>
-                                <button type="button" class="btn  w-100 bg-white border-0 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" class="btn  w-100 bg-white border-0 " data-bs-toggle="modal" data-bs-target="#createFolderModal">
                                     Create folder
                                 </button>
                             </li>
@@ -62,54 +62,6 @@
                 <span>My drive</span>
             </a>
 
-            <div class="accordion" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                        <button class="accordion-button fs-base" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                            <i class=" me-2 bi bi-file-richtext"></i>
-                            Menus
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <div class="list-group ">
-                                <a href="" class="list-group-item">
-                                    Lists
-                                </a>
-                                <a href="" class="list-group-item">
-                                    Create
-                                </a>
-                                <a href="" class="list-group-item">
-                                    Edit
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button class="accordion-button fs-base collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            <i class=" me-2 bi bi-file-richtext"></i>
-                            Chefs
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                        <div class="accordion-body">
-                            <div class="list-group ">
-                                <a href="" class="list-group-item">
-                                    Lists
-                                </a>
-                                <a href="" class="list-group-item">
-                                    Create
-                                </a>
-                                <a href="" class="list-group-item">
-                                    Edit
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <a href="" class="list-group-item">
                 <i class=" me-2 bi bi-people"></i>
                <span> Customer</span>
@@ -120,27 +72,35 @@
 
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="{{route('folder.store')}}" id="createFolder" class="" method="post">
-                    @csrf
-                    <input type="text" class="form-control" form="createFolder" value="Untitled folder" name="name" placeholder="folder Name">
-                    <button class="btn btn-primary" form="createFolder"> Save</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+    <x-modal
+        modalId="createFolderModal"
+        routeName="folder.store"
+        id=""
+        action=""
+        formName="createFolder"
+    />
+
+{{--<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
+{{--    <div class="modal-dialog">--}}
+{{--        <div class="modal-content">--}}
+{{--            <div class="modal-header">--}}
+{{--                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>--}}
+{{--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>--}}
+{{--            </div>--}}
+{{--            <div class="modal-body">--}}
+{{--                <form action="{{route('folder.store')}}" id="createFolder" class="" method="post">--}}
+{{--                    @csrf--}}
+{{--                    <input type="text" class="form-control" form="createFolder" value="Untitled folder" name="name" placeholder="folder Name">--}}
+{{--                    <button class="btn btn-primary" form="createFolder"> Save</button>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+{{--            <div class="modal-footer">--}}
+{{--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>--}}
+{{--                <button type="button" class="btn btn-primary">Save changes</button>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <script>
     let fileBtn= document.querySelector('.file-upload-btn');
