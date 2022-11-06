@@ -43,7 +43,7 @@
                                     <button   class="dropdown-item" form="destroyFolder{{$folder->id}}">Trash</button>
                                 </form>
                             </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" href="">Something else here</a></li>
                         </ul>
                     </div>
 
@@ -79,11 +79,11 @@
 
         <div class="row">
             @foreach($files as $file)
-                @if($file->extension == 'png'|| $file->extension == 'jpg'|| $file->extension == 'jpeg')
-
                     <div class="col-3 my-3">
 
-                        <div class="card uploadCard">
+                        <div class="card d-flex uploadCard position-relative">
+                            @if($file->extension == 'png'|| $file->extension == 'jpg'|| $file->extension == 'jpeg')
+
                             <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="100px" height="150px" style="object-fit: cover; object-position: top" alt="">
 
                             <div class="card-body d-flex justify-content-around">
@@ -92,33 +92,83 @@
                                 </svg>
                                 <p class="mb-0">{{$file->name}}</p>
                             </div>
+
+                            @else
+
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="150px" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                    </svg>
+                                    {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
+
+                                </div>
+
+                                <div class="card-body d-flex justify-content-around">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                    </svg>
+                                    <p class="mb-0">{{$file->name}}</p>
+                                </div>
+
+                            @endif
+
+                                <div class="dropdown position-absolute" style="top: 10px; right: 10px;">
+                                    <button class=" btn btn-sm btn-secondary border-0 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#renameFolder{{$file->id}}">
+                                                Rename
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <form action="{{route('file.destroy', $file->id)}}" id="destroyFolder{{$file->id}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button   class="dropdown-item" form="destroyFolder{{$file->id}}">Trash</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item"  href="{{route('file.download',$file->id)}}" >
+                                                Download
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
                         </div>
 
                     </div>
 
-                @else
-                    <div class="col-3 my-3">
-                        <div class="card uploadCard">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="150px" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                </svg>
-                                {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
 
+
+                <div class="modal fade" id="renameFolder{{$file->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-
-                            <div class="card-body d-flex justify-content-around">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
-                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                </svg>
-                                <p class="mb-0">{{$file->name}}</p>
+                            <div class="modal-body">
+                                <form action="{{route('file.update', $file->id)}}" id="updateFile{{$file->id}}" class="" method="post">
+                                    @csrf
+                                    @method('put')
+                                    <input type="text" class="form-control" form="updateFile{{$file->id}}" value="{{old('name',explode('.',$file->name)[0])}}" name="newName" placeholder="file Name">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button class="btn btn-primary" form="updateFile{{$file->id}}"> Save</button>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                @endif
             @endforeach
         </div>
+
+
 
 
     </div>

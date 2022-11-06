@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('myDrive.index');
 });
 
 Auth::routes();
 
 
-Route::prefix('drive')->group(function (){
+Route::middleware('auth')->prefix('drive')->group(function (){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('myDrive',\App\Http\Controllers\DriveController::class);
     Route::resource('folder',\App\Http\Controllers\FolderController::class);
     Route::resource('file',\App\Http\Controllers\FileController::class);
-
-
+    Route::get('download/{id}',[\App\Http\Controllers\FileController::class,'download'])->name('file.download');
 
 });

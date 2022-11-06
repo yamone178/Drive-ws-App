@@ -7,7 +7,11 @@ use App\Http\Requests\UpdateFileRequest;
 use App\Models\Drive;
 use App\Models\File;
 use App\Models\Folder;
+
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\True_;
 
 class FileController extends Controller
 {
@@ -115,7 +119,15 @@ class FileController extends Controller
      */
     public function update(UpdateFileRequest $request, File $file)
     {
-        //
+
+        $newName = $request->newName.'.'.$file->extension;
+
+        Storage::move('public/'.$file->name,  'public/'.$newName );
+
+        $file->name = $newName;
+        $file->update();
+
+        return redirect()->back();
     }
 
     /**
@@ -126,6 +138,22 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+
+        $fileName= File::find($file)->first()->name;
+        Storage::delete('public/'.$fileName);
+
+        $file->delete();
+        return redirect()->back();
+    }
+
+    public function download($id){
+
+        $fileName = File::findOrFail($id)->name;
+
+        $filePath= storage_path('app/public/'.$fileName);
+        response()->download($filePath);
+
+       return redirect()->back();
+
     }
 }

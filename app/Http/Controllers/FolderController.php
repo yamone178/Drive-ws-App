@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFolderRequest;
 use App\Http\Requests\UpdateFolderRequest;
 use App\Models\Drive;
 use App\Models\Folder;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\PseudoTypes\NegativeInteger;
 use phpDocumentor\Reflection\Types\Integer;
 
