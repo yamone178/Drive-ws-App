@@ -44,6 +44,7 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
 
+
        if ($request->hasFile('uploadFolder')){
            $folder= new Folder();
            $folder->name = $request->folder_name;

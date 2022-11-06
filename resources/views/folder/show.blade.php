@@ -139,7 +139,8 @@
 
                     @endforeach
 
-                   @foreach(\App\Models\Folder::where('drive_id', $folder->id)->get() as $drive)
+                   @foreach($folders as $drive)
+
 
                             <div class="col-3 position-relative">
                                 <a href="{{route('folder.show', $drive->id)}}" class="card my-3" style="height: 50px; cursor: pointer; text-decoration: none" >

@@ -61,7 +61,8 @@ class FolderController extends Controller
      */
     public function show(Folder $folder)
     {
-        return view('folder.show',compact('folder'));
+        $folders = Folder::where('drive_id', $folder->id)->get();
+        return view('folder.show',compact(['folder','folders']));
     }
 
     /**
