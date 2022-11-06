@@ -44,13 +44,61 @@
 
                         <div class="col-3 my-3">
 
-                                <div class="card">
+                                <div class="card position-relative">
                                     <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="170px" height="170px" style="object-fit: cover" alt="">
 
                                     <div class="card-body">
                                         <p class="mb-0">{{$file->name}}</p>
                                     </div>
+
+                                    <div class="dropdown position-absolute" style="top: 10px; right: 10px;">
+                                        <button class=" btn btn-sm btn-secondary border-0 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        </button>
+
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <button class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#renameFolder{{$file->id}}">
+                                                    Rename
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <form action="{{route('file.destroy', $file->id)}}" id="destroyFolder{{$file->id}}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button   class="dropdown-item" form="destroyFolder{{$file->id}}">Trash</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"  href="{{route('file.download',$file->id)}}" >
+                                                    Download
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
+
+                            <div class="modal fade" id="renameFolder{{$file->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('file.update', $file->id)}}" id="updateFile{{$file->id}}" class="" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <input type="text" class="form-control" form="updateFile{{$file->id}}" value="{{old('name',explode('.',$file->name)[0])}}" name="newName" placeholder="file Name">
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" form="updateFile{{$file->id}}"> Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                         </div>
 
@@ -93,7 +141,7 @@
 
                    @foreach(\App\Models\Folder::where('drive_id', $folder->id)->get() as $drive)
 
-                            <div class="col-3">
+                            <div class="col-3 position-relative">
                                 <a href="{{route('folder.show', $drive->id)}}" class="card my-3" style="height: 50px; cursor: pointer; text-decoration: none" >
 
 
@@ -108,10 +156,57 @@
                                         </div>
 
                                     </div>
+
                                 </a>
 
+                                <div class="dropdown position-absolute" style="top: 30px; right: 30px;">
+                                    <button class=" bg-white border-0 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    </button>
+
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#renameFolder{{$drive->id}}">
+                                                Rename
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <form action="{{route('folder.destroy', $drive->id)}}" id="destroyFolder{{$drive->id}}" method="post">
+                                                @csrf
+                                                @method('delete')
+                                                <button   class="dropdown-item" form="destroyFolder{{$drive->id}}">Trash</button>
+                                            </form>
+                                        </li>
+                                        <li><a class="dropdown-item" href="">Something else here</a></li>
+                                    </ul>
+                                </div>
+
+
                             </div>
-                   @endforeach
+
+                            <div class="modal fade" id="renameFolder{{$drive->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                            <button type="button" class="btnUntitled folder-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form action="{{route('folder.update', $drive->id)}}" id="updateFolder{{$drive->id}}" class="" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <input type="text" class="form-control" form="updateFolder{{$drive->id}}" value="Untitled folder" name="name" placeholder="folder Name">
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button class="btn btn-primary" form="updateFolder{{$drive->id}}"> Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        @endforeach
                 </div>
 
             </div>

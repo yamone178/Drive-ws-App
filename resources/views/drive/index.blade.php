@@ -57,16 +57,16 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{route('folder.update', $folder->id)}}" id="updateFolder" class="" method="post">
+                                <form action="{{route('folder.update', $folder->id)}}" id="updateFolder{{$folder->id}}" class="" method="post">
                                     @csrf
                                     @method('put')
-                                    <input type="text" class="form-control" form="updateFolder" value="Untitled folder" name="name" placeholder="folder Name">
+                                    <input type="text" class="form-control" form="updateFolder{{$folder->id}}" value="Untitled folder" name="name" placeholder="folder Name">
 
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button class="btn btn-primary" form="updateFolder"> Save</button>
+                                <button class="btn btn-primary" form="updateFolder{{$folder->id}}"> Save</button>
                             </div>
                         </div>
                     </div>
