@@ -43,7 +43,7 @@
                             <li>
                                 <form id="fileUpload" action="{{route('file.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
-                                    <input form="fileUpload" type="file" name="photos[]" multiple class="file-upload-input form-control" >
+                                    <input form="fileUpload" type="file" name="uploadFiles[]" multiple class="file-upload-input form-control" >
                                     <button form="fileUpload"   class="btn w-100 bg-white border-0 file-upload-btn" >
                                         <span class="bi bi-plus"></span>
                                         Upload File

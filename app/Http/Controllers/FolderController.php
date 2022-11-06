@@ -6,6 +6,7 @@ use App\Http\Requests\StoreFolderRequest;
 use App\Http\Requests\UpdateFolderRequest;
 use App\Models\Drive;
 use App\Models\Folder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\PseudoTypes\NegativeInteger;
 use phpDocumentor\Reflection\Types\Integer;
@@ -42,6 +43,7 @@ class FolderController extends Controller
     {
         $folder = new  Folder();
         $folder->name = $request->name;
+        $folder->user_id = Auth::id();
 
         if ($request->drive_id !=null){
             $folder->drive_id = $request->drive_id;

@@ -20,7 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 
-Route::middleware('auth')->prefix('drive')->group(function (){
+Route::middleware(['auth'])->prefix('drive')->group(function (){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('myDrive',\App\Http\Controllers\DriveController::class);
     Route::resource('folder',\App\Http\Controllers\FolderController::class);

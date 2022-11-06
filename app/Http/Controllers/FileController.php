@@ -48,6 +48,7 @@ class FileController extends Controller
        if ($request->hasFile('uploadFolder')){
            $folder= new Folder();
            $folder->name = $request->folder_name;
+           $folder->user_id= Auth::id();
            $folder->save();
 
            foreach ($request->uploadFolder as $key=>$file){
@@ -58,7 +59,6 @@ class FileController extends Controller
                    "user_id" => Auth::id(),
                    "extension"=> $file->extension(),
                    "folder_id" => $folder->id,
-                   "drive_id" => $folder->id,
                    "name" => $newName
                ];
 
@@ -67,16 +67,15 @@ class FileController extends Controller
            File::insert($saveFiles);
        }
 
-        if ($request->hasFile('photos')){
-            foreach ($request->photos as $key=>$photo){
-                $newName = uniqid()."_file.".$photo->extension();
-                $photo->storeAs("public",$newName);
+        if ($request->hasFile('uploadFiles')){
+            foreach ($request->uploadFiles as $key=>$uploadFile){
+                $newName = uniqid()."_file.".$uploadFile->extension();
+                $uploadFile->storeAs("public",$newName);
 
                 $saveFiles[$key] = [
                     "user_id" => Auth::id(),
-                    "extension"=> $photo->extension(),
+                    "extension"=> $uploadFile->extension(),
                     "folder_id" => $request->folder_id,
-                    "drive_id" => $request->folder_id,
                     "name" => $newName
                 ];
 
@@ -152,9 +151,7 @@ class FileController extends Controller
         $fileName = File::findOrFail($id)->name;
 
         $filePath= storage_path('app/public/'.$fileName);
-        response()->download($filePath);
-
-       return redirect()->back();
+       return response()->download($filePath);
 
     }
 }

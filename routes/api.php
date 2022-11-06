@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\FolderApiController;
+use App\Http\Controllers\FileApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ use App\Http\Controllers\AuthApiController;
 //    return $request->user();
 //});
 
-Route::prefix('v1')->group(function (){
+Route::middleware('responseToJson')->prefix('v1/drive')->group(function (){
     //auth
     Route::post('/register',[AuthApiController::class,'register'])->name('api-auth.register');
     Route::post('/login',[AuthApiController::class,'login'])->name('api-auth.login');
@@ -29,6 +31,8 @@ Route::prefix('v1')->group(function (){
         Route::post('logout',[AuthApiController::class,'logout'])->name('api-auth.logout');
         Route::post("/logout-all",[AuthApiController::class,'logoutAll'])->name('api.logout-all');
 
+        Route::apiResource('folder',FolderApiController::class);
+        Route::apiResource('file', FileApiController::class);
 
 
 
