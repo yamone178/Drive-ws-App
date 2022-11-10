@@ -18,8 +18,10 @@ class DriveController extends Controller
      */
     public function index()
     {
-       $files =File::where('folder_id', null)->latest('id')->get();
-       $folders= Folder::where('drive_id', null)->latest('id')->get();
+       $files =File::orWhere('user_id',Auth::id())
+           ->where('folder_id', null)->latest('id')->get();
+       $folders= Folder::orWhere('user_id',Auth::id())
+           ->where('drive_id', null)->latest('id')->get();
        return view('drive.index',compact(['files','folders']));
     }
 

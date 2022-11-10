@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFolderRequest;
 use App\Http\Requests\UpdateFolderRequest;
 use App\Models\Drive;
+use App\Models\File;
 use App\Models\Folder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -45,13 +46,31 @@ class FolderController extends Controller
         $folder->name = $request->name;
         $folder->user_id = Auth::id();
 
+
+
         if ($request->drive_id !=null){
             $folder->drive_id = $request->drive_id;
+
+            //find folder path
+            $parentPath = Folder::find($folder->drive_id)->path;
+            $folder->path = $parentPath."/".$folder->name;
+
+
+//            $drive_name = Folder::where('id', $folder->drive_id)->first()->name;
+//            Storage::makeDirectory('public/'.$drive_name."/".$folder->name);
+
+         }else{
+            $folder->path = "MyDrive/".$folder->name;
+
         }
+
+        //        else{
+//            Storage::makeDirectory('public/'.$folder->name);
+
+//        }
 
 
         $folder->save();
-
         return redirect()->back();
     }
 
@@ -105,6 +124,23 @@ class FolderController extends Controller
     {
         $folder->delete();
         return redirect()->back();
+
+    }
+
+    public function download($id){
+
+        $files = File::where('folder_id', $id)->get();
+
+        $fileNames = [];
+        foreach ($files as $key=>$file){
+            $filePath= storage_path('app/public/'.$file->name);
+            $fileNames[$key] = $filePath;
+        }
+
+        return response()->download($fileNames);
+
+
+
 
     }
 }

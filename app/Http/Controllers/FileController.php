@@ -44,22 +44,41 @@ class FileController extends Controller
     public function store(StoreFileRequest $request)
     {
 
-
-       if ($request->hasFile('uploadFolder')){
+        if ($request->hasFile('uploadFolder')){
            $folder= new Folder();
            $folder->name = $request->folder_name;
            $folder->user_id= Auth::id();
+
+           if ($request->drive_id != null){
+               $folder->drive_id = $request->drive_id;
+
+               //find folder path
+               $parentPath = Folder::find($folder->drive_id)->path;
+               $folder->path = $parentPath."/".$folder->name;
+           }else{
+               $folder->path = "MyDrive/".$folder->name;
+
+           }
+
+
            $folder->save();
 
-           foreach ($request->uploadFolder as $key=>$file){
-               $newName = uniqid()."_file.".$file->extension();
-               $file->storeAs("public",$newName);
+//            Storage::makeDirectory('public/'.$folder->name);
+
+
+            foreach ($request->uploadFolder as $key=>$file){
+//
+//
+             $newName = uniqid()."_file.".$file->extension();
+              $file->storeAs("public/",$newName);
 
                $saveFiles[$key] = [
                    "user_id" => Auth::id(),
                    "extension"=> $file->extension(),
                    "folder_id" => $folder->id,
-                   "name" => $newName
+                   "name" => $newName,
+                   "size"=> $file->getSize(),
+                   "folder_name"=>$folder->name
                ];
 
            }
@@ -70,14 +89,18 @@ class FileController extends Controller
         if ($request->hasFile('uploadFiles')){
             foreach ($request->uploadFiles as $key=>$uploadFile){
                 $newName = uniqid()."_file.".$uploadFile->extension();
-                $uploadFile->storeAs("public",$newName);
+                $uploadFile->storeAs("public/",$newName);
 
                 $saveFiles[$key] = [
                     "user_id" => Auth::id(),
                     "extension"=> $uploadFile->extension(),
                     "folder_id" => $request->folder_id,
-                    "name" => $newName
+                    "name" => $newName,
+                    "size"=> $uploadFile->getSize(),
+                    "folder_name"=> $request->folder_name
                 ];
+
+
 
             }
 
@@ -120,7 +143,8 @@ class FileController extends Controller
     public function update(UpdateFileRequest $request, File $file)
     {
 
-        $newName = $request->newName.'.'.$file->extension;
+
+        $newName = $request->name.'.'.$file->extension;
 
         Storage::move('public/'.$file->name,  'public/'.$newName );
 

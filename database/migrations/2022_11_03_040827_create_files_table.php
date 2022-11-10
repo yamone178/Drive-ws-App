@@ -17,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('extension');
+            $table->string('size');
+            $table->string('folder_name')->nullable();
             $table->foreignId('folder_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->string('path')->default('myDrive/')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

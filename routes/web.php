@@ -29,6 +29,6 @@ Route::middleware(['auth'])->prefix('drive')->group(function (){
     Route::resource('myDrive',\App\Http\Controllers\DriveController::class);
     Route::resource('folder',\App\Http\Controllers\FolderController::class);
     Route::resource('file',\App\Http\Controllers\FileController::class);
-    Route::get('download/{id}',[\App\Http\Controllers\FileController::class,'download'])->name('file.download');
-
+    Route::get('/file/download/{id}',[\App\Http\Controllers\FileController::class,'download'])->name('file.download');
+    Route::get('/folder/download/{id}',[\App\Http\Controllers\FolderController::class,'download'])->name('folder.download');
 });
