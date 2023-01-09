@@ -160,23 +160,14 @@ class FileController extends Controller
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(File $file)
     {
 
-        $file= File::where('user_id',Auth::id())
-                ->withTrashed()
-                ->findOrFail($id);
-
-        //forceDelete
-        if ($file->trashed()){
-            Storage::delete('public/'.$file->name);
-
-            $file->forceDelete();
-        }
+        $fileName= File::find($file)->first()->name;
+        Storage::delete('public/'.$fileName);
 
         $file->delete();
         return redirect()->back();
-
     }
 
     public function download($id){
@@ -187,15 +178,4 @@ class FileController extends Controller
        return response()->download($filePath);
 
     }
-    public function restore($id){
-
-
-        $file= File::where('user_id',Auth::id())
-            ->onlyTrashed()->findOrFail($id);
-
-        $file->restore();
-
-        return redirect()->back();
-    }
-
 }

@@ -13,9 +13,7 @@ class GetSize extends Model
     public static function getTotalSize(){
 
         $size =[];
-        $fileSizes = File::where('user_id', Auth::id())
-                    ->withTrashed()
-                    ->get('size');
+        $fileSizes = File::where('user_id', Auth::id())->get('size');
 
         foreach ($fileSizes as $key=>$fileSize){
             $size[$key] = $fileSize->size;

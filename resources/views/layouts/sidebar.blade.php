@@ -56,7 +56,7 @@
                 <span>My drive</span>
             </a>
 
-            <a href="{{route('drive.trash')}}" class="list-group-item">
+            <a href="{{route('myDrive.index')}}" class="list-group-item">
                 <i class=" me-2 bi bi-trash"></i>
                 <span>Trash</span>
             </a>
@@ -65,9 +65,7 @@
                 <i class=" me-2 bi-cloud"></i>
                <span>Storage</span>
                 <br>
-                <span>{{\App\Helpers\GetSize::changeMB(\App\Helpers\GetSize::getTotalSize())}} of 1GB used</span>
-
-                {{--                <span>{{\App\Models\GetSize::changeMB(\App\Models\GetSize::getTotalSize())}} of 1GB used</span>--}}
+                <span>{{\App\Models\GetSize::changeMB(\App\Models\GetSize::getTotalSize())}} of 1GB used</span>
             </a>
 
         </div>

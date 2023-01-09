@@ -18,10 +18,9 @@ class DriveController extends Controller
      */
     public function index()
     {
-       $files =File::where('user_id',Auth::id())
-           ->where('folder_id', null)
-           ->latest('id')->get();
-       $folders= Folder::where('user_id',Auth::id())
+       $files =File::orWhere('user_id',Auth::id())
+           ->where('folder_id', null)->latest('id')->get();
+       $folders= Folder::orWhere('user_id',Auth::id())
            ->where('drive_id', null)->latest('id')->get();
        return view('drive.index',compact(['files','folders']));
     }
@@ -92,15 +91,4 @@ class DriveController extends Controller
     {
         //
     }
-
-
-    public function trash(){
-        $files=  File::where('user_id',Auth::id())
-            ->onlyTrashed()->latest('id')->get();
-
-        $folders=  Folder::where('user_id',Auth::id())
-            ->onlyTrashed()->latest('id')->get();
-        return view('drive.trash', compact(['files', 'folders']));
-    }
-
 }
