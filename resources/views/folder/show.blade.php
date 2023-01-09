@@ -14,19 +14,16 @@
 
                        @foreach($paths as $path)
 
+
                            @if($path == 'MyDrive')
                                <a href="{{route('myDrive.index')}}" class="text-black text-decoration-none"><h4>{{$path}}/ </h4></a>
 
-                           @else
-                               @if( $folder->drive_id == null)
+                           @elseif($folder->drive_id == null)
                                    <a href="{{route('folder.show',$folder->id)}}" class="text-black text-decoration-none"><h4>{{$path}} /</h4></a>
 
-                               @else
-
+                           @else
                                    <a href="{{route('folder.show',$folder->drive_id)}}" class="text-black text-decoration-none"><h4>{{$path}} /  </h4></a>
 
-
-                               @endif
                            @endif
 
 
@@ -119,16 +116,69 @@
 
                 <div class="row">
                     @foreach($folder->files as $file)
-                        @if($file->extension == 'png'|| $file->extension == 'jpg'|| $file->extension == 'jpeg')
 
-                            <div class="col-3 my-3">
+                            <div class="col-3 my-3 position-relative">
+
+{{--                                photo--}}
+                                @if($file->extension == 'png'|| $file->extension == 'jpg'|| $file->extension == 'jpeg')
+
 
                                 <div class="card position-relative">
-                                    <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="170px" height="170px" style="object-fit: cover" alt="">
+                                    <a class="my-image-links" data-gall="gallery01" href="{{asset('storage/'.$file->name)}}">
+                                        <img src="{{asset('storage/'.$file->name)}}" class="card-img-top" width="100px" height="150px" style="object-fit: cover; object-position: top" alt="">
 
+                                    </a>
                                     <div class="card-body">
                                         <p class="mb-0">{{$file->name}}</p>
                                     </div>
+
+
+                                </div>
+
+                                @elseif($file->extension == 'mp4')
+
+                                        <div class="card position-relative">
+                                            <a class="my-video-links" data-autoplay="true" data-vbtype="video" data-ratio="1x1" data-maxwidth="400px" href="{{asset('storage/'.$file->name)}}">
+
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="100px" height="150px" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                                    </svg>
+                                                    {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
+
+                                                </div>
+
+                                            </a>
+
+                                            <div class="card-body d-flex justify-content-around">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                                </svg>
+                                                <p class="mb-0">{{$file->name}}</p>
+                                            </div>
+                                        </div>
+
+                                @else
+                                    <div class="card position-relative">
+                                            <div class="d-flex justify-content-center align-items-center" style="width: 170px; height: 170px;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                                </svg>
+                                                {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
+
+                                            </div>
+
+                                            <div class="card-body d-flex justify-content-around">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                                </svg>
+
+                                                <p class="mb-0">{{$file->name}}</p>
+                                            </div>
+
+                                        </div>
+
+                                @endif
 
                                     <x-drop-drown
                                         modalId="renameFile{{$file->id}}"
@@ -137,9 +187,10 @@
                                         destroy-route="file.destroy"
                                         destroy-form-name="destroyFile{{$file->id}}"
                                         download-route="file.download"
-                                    />                                </div>
+                                    />
 
-                                <x-modal
+
+                                    <x-modal
                                     modalId="renameFile{{$file->id}}"
                                     routeName="file.update"
                                     id="{{$file->id}}"
@@ -149,54 +200,6 @@
                                 />
 
                             </div>
-                        @elseif($file->extension == 'mp4')
-
-                            <div class="col-3 my-3">
-                                <video controls>
-                                    <source src="{{$file->name}}" type="video/mp4">
-                                </video>
-                            </div>
-
-                        @else
-                            <div class="col-3 my-3">
-                                <div class="card">
-                                    <div class="d-flex justify-content-center align-items-center" style="width: 170px; height: 170px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
-                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                        </svg>
-                                        {{--                                        <img src="{{asset('storage/localImages/file.jpg')}}" class="card-img-top" width="170px" height="170px"  style="object-fit: cover" alt="">--}}
-
-                                    </div>
-
-                                    <div class="card-body d-flex justify-content-around">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class=" text-primary bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
-                                            <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                        </svg>
-
-                                        <p class="mb-0">{{$file->name}}</p>
-                                    </div>
-                                    <x-drop-drown
-                                        modalId="renameFile{{$file->id}}"
-                                        id="{{$file->id}}"
-                                        acion-method="delete"
-                                        destroy-route="file.destroy"
-                                        destroy-form-name="destroyFile{{$file->id}}"
-                                        download-route="file.download"
-                                    />
-
-                                    <x-modal
-                                        modalId="renameFile{{$file->id}}"
-                                        routeName="file.update"
-                                        id="{{$file->id}}"
-                                        action="put"
-                                        formName="updateFile{{$file->id}}"
-
-                                    />
-                                </div>
-                            </div>
-
-
-                        @endif
 
 
                     @endforeach

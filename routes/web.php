@@ -31,4 +31,8 @@ Route::middleware(['auth'])->prefix('drive')->group(function (){
     Route::resource('file',\App\Http\Controllers\FileController::class);
     Route::get('/file/download/{id}',[\App\Http\Controllers\FileController::class,'download'])->name('file.download');
     Route::get('/folder/download/{id}',[\App\Http\Controllers\FolderController::class,'download'])->name('folder.download');
+    Route::get('/trash',[\App\Http\Controllers\DriveController::class,'trash'])->name('drive.trash');
+    Route::post('/file/restore/{id}',[\App\Http\Controllers\FileController::class, 'restore'])->name('file.restore');
+    Route::post('/folder/restore/{id}',[\App\Http\Controllers\FolderController::class, 'restore'])->name('folder.restore');
+
 });

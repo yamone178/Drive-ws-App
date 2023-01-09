@@ -120,8 +120,17 @@ class FolderController extends Controller
      * @param  \App\Models\Folder  $folder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Folder $folder)
+    public function destroy($id)
     {
+        $folder= Folder::where('user_id',Auth::id())
+            ->withTrashed()
+            ->findOrFail($id);
+
+        //forceDelete
+        if ($folder->trashed()){
+            $folder->forceDelete();
+        }
+
         $folder->delete();
         return redirect()->back();
 
@@ -143,4 +152,15 @@ class FolderController extends Controller
 
 
     }
+
+    public function restore($id){
+
+        $folder=Folder::where('user_id',Auth::id())
+            ->onlyTrashed()->find($id);
+
+        $folder->restore();
+
+        return redirect()->back();
+    }
+
 }
